@@ -1532,8 +1532,6 @@ namespace NuGet.PackageManagement
                 return actions;
             }
 
-            Debugger.Break();
-
             // Step-1 : Get the metadata resources from "packages" folder or custom repository path
             var packageIdentity = packageReference.PackageIdentity;
             var projectName = NuGetProject.GetUniqueNameOrName(nuGetProject);
