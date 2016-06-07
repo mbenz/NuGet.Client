@@ -13,6 +13,7 @@ using NuGet.ProjectManagement;
 using NuGet.Protocol.Core.Types;
 using NuGet.Packaging.Core;
 using NuGet.Versioning;
+using NuGet.Protocol;
 
 namespace NuGet.CommandLine
 {
@@ -318,6 +319,36 @@ namespace NuGet.CommandLine
                 CancellationToken.None);
 
             project.Save();
+
+            Console.WriteLine();
+            foreach (var sourceRepository in sourceRepositories)
+            {
+                Console.WriteLine($"Feed metrics: {sourceRepository.PackageSource.Source}");
+
+                var dr = await sourceRepository.GetResourceAsync<PackageSourceDiagnosticsResource>(CancellationToken.None);
+                var d = dr.PackageSourceDiagnostics;
+
+                foreach (var msg in d.DiagnosticMessages)
+                {
+                    Console.WriteWarning(msg.Details);
+                }
+
+                var table = new OutputTable<DiagnosticEvent>();
+                table
+                    .WithColumn("Time", e => e.EventTime.ToLongTimeString(), 12)
+                    .WithColumn("Type", e => e.EventType.ToString(), 12)
+                    .WithColumn("Operation", e => e.Operation, 80)
+                    //.WithColumn("CorrelationId", e => e.CorrelationId, 40)
+                    //.WithColumn("Tag", e => e.Tag, 40)
+                    .WithColumn("Latency", e => e.Latency != TimeSpan.Zero ? DatetimeUtility.ToReadableTimeFormat(e.Latency) : "--")
+                    ;
+
+                table.PrintHeaders(System.Console.Out);
+                foreach(var e in d.Events)//.Where(e => !e.Is(EventType.Started)))
+                {
+                    table.PrintRow(System.Console.Out, e);
+                }
+            }
         }
 
         private CommandLineSourceRepositoryProvider GetSourceRepositoryProvider()

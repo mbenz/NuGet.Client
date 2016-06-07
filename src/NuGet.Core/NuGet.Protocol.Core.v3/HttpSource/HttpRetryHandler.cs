@@ -4,7 +4,6 @@
 using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,13 +48,13 @@ namespace NuGet.Protocol
                 {
                     var stopwatch = Stopwatch.StartNew();
                     string requestUri = requestMessage.RequestUri.ToString();
-                    
+
                     try
                     {
-                        // The only time that we will be disposing this existing response is if we have 
+                        // The only time that we will be disposing this existing response is if we have
                         // successfully fetched an HTTP response but the response has an status code indicating
                         // failure (i.e. HTTP status code >= 500).
-                        // 
+                        //
                         // If we don't even get an HTTP response message because an exception is thrown, then there
                         // is no response instance to dispose. Additionally, we cannot use a finally here because
                         // the caller needs the response instance returned in a non-disposed state.
@@ -73,18 +72,8 @@ namespace NuGet.Protocol
                             requestMessage.Method,
                             requestUri));
 
-                        // Issue the request.
-                        var timeoutMessage = string.Format(
-                            CultureInfo.CurrentCulture,
-                            Strings.Http_Timeout,
-                            requestMessage.Method,
-                            requestUri,
-                            (int)request.RequestTimeout.TotalMilliseconds);
-                        response = await TimeoutUtility.StartWithTimeout(
-                            timeoutToken => request.HttpClient.SendAsync(requestMessage, request.CompletionOption, timeoutToken),
-                            request.RequestTimeout,
-                            timeoutMessage,
-                            cancellationToken);
+                        // request.RequestTimeout?
+                        response = await request.HttpClient.SendAsync(requestMessage, request.CompletionOption, cancellationToken);
 
                         // Wrap the response stream so that the download can timeout.
                         if (response.Content != null)
