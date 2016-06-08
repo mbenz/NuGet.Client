@@ -66,6 +66,7 @@
     <Compile Include="DataStreamFromComStream.cs" />
     <Compile Include="FontAndColorsRegistrationAttribute.cs" />
     <Compile Include="Guids.cs" />
+    <Compile Include="NuGetProjectUpgradeHelper.cs" />
     <Compile Include="VsCredentialProviderImporter.cs" />
     <Compile Include="InteractiveLoginProvider.cs" />
     <Compile Include="INuGetUIContextFactory.cs" />
@@ -325,7 +326,7 @@
     <ItemGroup Condition="'$(VisualStudioVersion)' == '15.0'">
       <SourceVsixManifest Include="source.extension.dev15.vsixmanifest" />
     </ItemGroup>
-  </Target>  
+  </Target>
   <ItemGroup Condition="'$(VisualStudioVersion)' == '14.0'">
     <VsixIncludeFile Include=".vsixinclude.dev14" />
     <VsixIgnoreFile Include=".vsixignore.dev14" />
@@ -375,9 +376,9 @@
     </ItemGroup>
     <Message Text="Suppressed file '%(SuppressPackaging.SourceFile)'" Condition=" '@(SuppressPackaging)' != '' " />
     <Message Text="Included file '%(VSIXSourceItem.Identity)'" Condition=" '@(VSIXSourceItem)' != '' " />
-    <Error Text="Missing @(MissingRequiredAssemblies->Count()) required file(s) '@(MissingRequiredAssemblies)'" Condition=" '@(MissingRequiredAssemblies)' != '' " File="@(VsixIncludeFile)" />
-    <Error Text="Found @(NotListedDependencies->Count()) not listed file(s) '@(NotListedDependencies)'" Condition=" '@(NotListedDependencies)' != '' " File="@(VsixIncludeFile)" />
-    <Warning Text="Missing @(MissingIgnoredAssemblies->Count()) ignored file(s) '@(MissingIgnoredAssemblies)'" Condition=" '@(MissingIgnoredAssemblies)' != '' " File="@(VsixIgnoreFile)" />
-    <Message Text="Included @(VSIXSourceItem->Count()) file(s). Filtered @(SuppressPackaging->Count()) file(s)." Importance="high" />
+    <Error Text="Missing @(MissingRequiredAssemblies-&gt;Count()) required file(s) '@(MissingRequiredAssemblies)'" Condition=" '@(MissingRequiredAssemblies)' != '' " File="@(VsixIncludeFile)" />
+    <Error Text="Found @(NotListedDependencies-&gt;Count()) not listed file(s) '@(NotListedDependencies)'" Condition=" '@(NotListedDependencies)' != '' " File="@(VsixIncludeFile)" />
+    <Warning Text="Missing @(MissingIgnoredAssemblies-&gt;Count()) ignored file(s) '@(MissingIgnoredAssemblies)'" Condition=" '@(MissingIgnoredAssemblies)' != '' " File="@(VsixIgnoreFile)" />
+    <Message Text="Included @(VSIXSourceItem-&gt;Count()) file(s). Filtered @(SuppressPackaging-&gt;Count()) file(s)." Importance="high" />
   </Target>
 </Project>
