@@ -28,6 +28,7 @@ namespace NuGet.Common
             Project = GetProject(projectFullPath);
             ProjectName = Path.GetFileName(projectFullPath);
             ProjectUniqueName = projectFullPath;
+            ProjectFileName = projectFullPath;
             NuGetProjectContext = projectContext;
         }
 
@@ -45,6 +46,9 @@ namespace NuGet.Common
         public string ProjectName { get; }
 
         public string ProjectUniqueName { get; }
+
+        public string ProjectFileName { get; }
+
 
         public NuGetFramework TargetFramework
         {
