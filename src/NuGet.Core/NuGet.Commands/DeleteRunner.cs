@@ -24,12 +24,14 @@ namespace NuGet.Commands
         {
             source = CommandRunnerUtility.ResolveSource(sourceProvider, source);
 
+            apiKey = CommandRunnerUtility.GetApiKey(settings, source, apiKey);
+
             PackageUpdateResource packageUpdateResource = await CommandRunnerUtility.GetPackageUpdateResource(sourceProvider, source);
 
             await packageUpdateResource.Delete(
                 packageId,
                 packageVersion,
-                (endpoint) => CommandRunnerUtility.GetApiKey(settings, endpoint, apiKey),
+                apiKey,
                 (desc) => nonInteractive ? true : confirmFunc(desc),
                 logger);
         }

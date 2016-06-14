@@ -28,6 +28,7 @@ namespace NuGet.Commands
             {
                 timeoutSeconds = 5 * 60;
             }
+            var apikey = CommandRunnerUtility.GetApiKey(settings, source, apiKey);
 
             PackageUpdateResource packageUpdateResource = await CommandRunnerUtility.GetPackageUpdateResource(sourceProvider, source);
 
@@ -44,12 +45,19 @@ namespace NuGet.Commands
                 }
             }
 
+            string symbolApiKey = null;
+            if (!string.IsNullOrEmpty(symbolsSource))
+            {
+                symbolApiKey = CommandRunnerUtility.GetApiKey(settings, symbolsSource, apiKey);
+            }
+
             await packageUpdateResource.Push(
                 packagePath,
                 symbolsSource,
                 timeoutSeconds,
                 disableBuffering,
-                endpoint => CommandRunnerUtility.GetApiKey(settings, endpoint, apiKey),
+                apikey,
+                symbolApiKey,
                 logger);
         }
     }

@@ -44,7 +44,7 @@ namespace NuGet.Protocol.Tests
                 await resource.Delete(
                     packageId: "DeepEqual",
                     packageVersion: "1.4.0.1-rc",
-                    getApiKey: _ => apiKey,
+                    apiKey: apiKey,
                     confirm: _ => true,
                     log: NullLogger.Instance);
 
@@ -91,7 +91,7 @@ namespace NuGet.Protocol.Tests
                 await resource.Delete(
                     packageId: "DeepEqual",
                     packageVersion: "1.4.0.1-rc",
-                    getApiKey: _ => apiKey,
+                    apiKey: apiKey,
                     confirm: _ => true,
                     log: NullLogger.Instance);
 
@@ -141,7 +141,8 @@ namespace NuGet.Protocol.Tests
                     symbolsSource: null,
                     timeoutInSecond: 5,
                     disableBuffering: false,
-                    getApiKey: _ => apiKey,
+                    apiKey: apiKey,
+                    symbolsApiKey:null,
                     log: NullLogger.Instance);
 
                 // Assert
@@ -191,7 +192,8 @@ namespace NuGet.Protocol.Tests
                     symbolsSource: null,
                     timeoutInSecond: 5,
                     disableBuffering: false,
-                    getApiKey: _ => apiKey,
+                    apiKey: apiKey,
+                    symbolsApiKey: null,
                     log: NullLogger.Instance);
 
                 // Assert

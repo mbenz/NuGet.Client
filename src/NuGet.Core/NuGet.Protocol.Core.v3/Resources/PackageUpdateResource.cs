@@ -44,7 +44,8 @@ namespace NuGet.Protocol.Core.Types
             string symbolsSource, // empty to not push symbols
             int timeoutInSecond,
             bool disableBuffering,
-            Func<string, string> getApiKey,
+            string apiKey,
+            string symbolsApiKey,
             ILogger log)
         {
             // TODO: Figure out how to hook this up with the HTTP request
@@ -55,13 +56,10 @@ namespace NuGet.Protocol.Core.Types
                 var requestTimeout = TimeSpan.FromSeconds(timeoutInSecond);
                 tokenSource.CancelAfter(requestTimeout);
 
-                var apiKey = getApiKey(_source);
-
                 await PushPackage(packagePath, _source, apiKey, requestTimeout, log, tokenSource.Token);
 
                 if (!string.IsNullOrEmpty(symbolsSource) && !IsFileSource())
                 {
-                    string symbolsApiKey = getApiKey(symbolsSource);
                     await PushSymbols(packagePath, symbolsSource, symbolsApiKey, requestTimeout, log, tokenSource.Token);
                 }
             }
@@ -69,12 +67,11 @@ namespace NuGet.Protocol.Core.Types
 
         public async Task Delete(string packageId,
             string packageVersion,
-            Func<string, string> getApiKey,
+            string apiKey,
             Func<string, bool> confirm,
             ILogger log)
         {
             var sourceDisplayName = GetSourceDisplayName(_source);
-            var apiKey = getApiKey(_source);
             if (String.IsNullOrEmpty(apiKey))
             {
                 log.LogWarning(string.Format(CultureInfo.CurrentCulture,
