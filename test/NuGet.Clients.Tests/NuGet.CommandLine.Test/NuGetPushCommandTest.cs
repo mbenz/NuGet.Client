@@ -1494,7 +1494,6 @@ $@"<?xml version='1.0' encoding='utf-8'?>
                                                     <configuration>
                                                       <packageSources>
                                                         <add key='nuget.org' value='{0}' protocolVersion='3' />
-                                                        <add key='nuget.org' value='{1}' />
                                                       </packageSources>
                                                       <packageRestore>
                                                         <add key='enabled' value='True' />
@@ -1502,12 +1501,11 @@ $@"<?xml version='1.0' encoding='utf-8'?>
                                                       </packageRestore>
                                                       <disabledPackageSources />
                                                       <apikeys>
-                                                        <add key='{2}' value='{3}' />
+                                                        <add key='{1}' value='{2}' />
                                                       </apikeys>
                                                     </configuration>",
                                                     serverV3.Uri + "index.json",
-                                                    serverV2.Uri + "push",
-                                                    serverV2.Uri + "push",
+                                                    serverV3.Uri + "index.json",
                                                     Configuration.EncryptionUtility.EncryptString("blah-blah"));
 
                         var configFileName = Path.Combine(randomTestFolder, "nuget.config");
