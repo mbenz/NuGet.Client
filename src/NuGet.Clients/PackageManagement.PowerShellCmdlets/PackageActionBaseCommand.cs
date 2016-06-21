@@ -103,7 +103,7 @@ namespace NuGet.PackageManagement.PowerShellCmdlets
             {
                 if (ex.InnerException is PackageAlreadyInstalledException)
                 {
-                    Log(ProjectManagement.MessageLevel.Info, ex.Message);
+                    Log(MessageLevel.Info, ex.Message);
                 }
                 else
                 {
@@ -145,7 +145,7 @@ namespace NuGet.PackageManagement.PowerShellCmdlets
             {
                 if (ex.InnerException is PackageAlreadyInstalledException)
                 {
-                    Log(ProjectManagement.MessageLevel.Info, ex.Message);
+                    Log(MessageLevel.Info, ex.Message);
                 }
                 else
                 {
