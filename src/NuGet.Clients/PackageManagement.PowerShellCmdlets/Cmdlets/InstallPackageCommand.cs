@@ -10,17 +10,14 @@ using System.Linq;
 using System.Management.Automation;
 using System.Net;
 using System.Text;
-using Microsoft.VisualStudio.Shell;
-using NuGet.PackageManagement.VisualStudio;
+using NuGet.Common;
+using NuGet.Configuration;
+using NuGet.PackageManagement.UI;
 using NuGet.Packaging;
 using NuGet.Packaging.Core;
-using NuGet.Resolver;
 using NuGet.ProjectManagement;
 using NuGet.Versioning;
 using Task = System.Threading.Tasks.Task;
-using NuGet.PackageManagement.UI;
-using NuGet.Configuration;
-using NuGet.Common;
 
 namespace NuGet.PackageManagement.PowerShellCmdlets
 {
